@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/vcenter.yml
+
+  vars:
+    is_windows: false
+    #mod_name:
+
+  tasks:
+  - name: Gather all registered virtual machines
+    vmware_vm_facts:
+      hostname: "{{ vc_host }}" 
+      username: "{{ vc_user }}"
+      password: "{{ vc_pass }}"
+      validate_certs: false
+    register: vmfacts
+
+  - set_fact:
+      is_windows: true  
+    when: vmfacts.virtual_machines.{{mod_name}}.guest_fullname | regex_search('(Windows)')
+
+  - fail:
+      msg: "This is not a Windows system"
+    when: is_windows != true
