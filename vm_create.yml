@@ -1,5 +1,6 @@
 ---
 - hosts: localhost
+  gather_facts: false
 
   vars:
     vc_host: '10.0.0.12'
@@ -11,8 +12,8 @@
           32383663336233623637326430303537343839623332646132376364646561366332396232653866
           3339393833646230370a363663656536653861353239393264616661326634353536393939633464
           6462
-    # vm_name:
-    # vm_ip:
+    # mod_name:
+    # mod_ip:
 
   tasks:
   - name: clone guest
@@ -23,18 +24,18 @@
       validate_certs: no
       datacenter: MOD
       cluster: NUC
-      name: "{{ vm_name }}" 
+      name: "{{ mod_name }}" 
       template: rhel-74-base
       networks:
       - name: Servers
-        ip: "{{ vm_ip }}"
+        ip: "{{ mod_ip }}"
         netmask: 255.255.255.0
         gateway: 10.0.0.1
       disk:
       - size_gb: 40
         datastore: Local01
       customization:
-        name: "{{ vm_name}}.mod.local"
+        name: "{{ mod_name}}.mod.local"
         domain: mod.local
       wait_for_ip_address: yes
 
