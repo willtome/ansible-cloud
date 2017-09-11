@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+
+  vars:
+    vc_host: '10.0.0.12'
+    vc_user: 'administrator@vsphere.local'
+    vc_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64636630663035653165336562626564303231316563326664383438656338393233663935383162
+          3234333164376463636165346437646563306631656363620a366364363762636332303638633034
+          32383663336233623637326430303537343839623332646132376364646561366332396232653866
+          3339393833646230370a363663656536653861353239393264616661326634353536393939633464
+          6462
+    # vm_name:
+    # vm_ip:
+
+  tasks:
+  - name: clone guest
+    vmware_guest:
+      hostname: "{{ vc_host }}"
+      username: "{{ vc_user }}"
+      password: "{{ vc_pass }}"
+      validate_certs: no
+      datacenter: MOD
+      cluster: NUC
+      name: "{{ vm_name }}" 
+      template: rhel-74-base
+      networks:
+      - name: Servers
+        ip: "{{ vm_ip }}"
+        netmask: 255.255.255.0
+        gateway: 10.0.0.1
+      disk:
+      - size_gb: 40
+        datastore: Local01
+      customization:
+        name: "{{ vm_name}}.mod.local"
+        domain: mod.local
+      wait_for_ip_address: yes
+
