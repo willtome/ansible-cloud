@@ -24,8 +24,8 @@
       validate_certs: no
       datacenter: MOD
       cluster: NUC
-      name: "{{ mod_name }}" 
-      template: rhel-74-base
+      name: "{{ mod_name }}"
+      template: "{{mod_os}}"
       networks:
       - name: Servers
         ip: "{{ mod_ip }}"
@@ -38,4 +38,3 @@
         name: "{{ mod_name}}.mod.local"
         domain: mod.local
       wait_for_ip_address: yes
-
