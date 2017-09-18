@@ -46,4 +46,5 @@
         name: "{{ mod_name}}.mod.local"
         domain: mod.local
         password: "{{ local_pass }}"
+        autologon: true
       wait_for_ip_address: yes
