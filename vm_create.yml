@@ -45,5 +45,5 @@
       customization:
         name: "{{ mod_name}}.mod.local"
         domain: mod.local
-        password:
+        password: "{{ local_pass }}"
       wait_for_ip_address: yes
