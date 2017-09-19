@@ -23,3 +23,7 @@
   - fail:
       msg: "This is not a Red Hat system"
     when: is_nix != true
+
+  - tower_group:
+      name: unconfigured
+      inventory: Lab
