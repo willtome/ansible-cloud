@@ -27,6 +27,7 @@
   - tower_group:
       name: unconfigured
       inventory: Lab
-      tower_host: localhost
-      tower_username: tower_admin
+      tower_host: 10.0.0.15 
+      tower_username: "tower_admin"
       tower_password: "{{ vc_pass }}"
+      tower_verify_ssl: false
