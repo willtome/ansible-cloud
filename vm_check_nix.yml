@@ -27,3 +27,4 @@
   - tower_group:
       name: unconfigured
       inventory: Lab
+      tower_config_file: "/etc/tower/tower_cli.cfg"
