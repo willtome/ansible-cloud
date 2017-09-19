@@ -24,6 +24,14 @@
     # mod_os: Template to clone from. Set by Tower survey
 
   tasks:
+  - name: set DNS for windows
+    set_fact:
+         mod_dns: "10.0.0.11"
+    when: mod_os == 'win-2016-base'
+  - name: set DNS for linux
+    set_fact:
+         mod_dns: "10.0.0.10"
+    when: mod_os == 'rhel-74-base'
   - name: clone guest
     vmware_guest:
       hostname: "{{ vc_host }}"
@@ -39,7 +47,7 @@
         ip: "{{ mod_ip }}"
         netmask: 255.255.255.0
         gateway: 10.0.0.1
-        dns_servers: 10.0.0.10
+        dns_servers: "{{ mod_dns }}"
       disk:
       - size_gb: 40
         datastore: Local01
