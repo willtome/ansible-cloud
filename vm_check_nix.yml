@@ -1,0 +1,25 @@
+---
+- hosts: localhost
+  vars_files:
+  - vars/vcenter.yml
+
+  vars:
+    mod_vm: "dc"
+    is_nix: false
+
+  tasks:
+  - name: Gather all registered virtual machines
+    vmware_vm_facts:
+      hostname: "{{ vc_host }}" 
+      username: "{{ vc_user }}"
+      password: "{{ vc_pass }}"
+      validate_certs: false
+    register: vmfacts
+
+  - set_fact:
+      is_nix: true  
+    when: vmfacts.virtual_machines.{{mod_vm}}.guest_fullname | regex_search('(Red Hat)')
+
+  - fail:
+      msg: "This is not a Red Hat system"
+    when: is_nix != true
