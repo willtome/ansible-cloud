@@ -10,24 +10,16 @@
   tasks:
   - name: Gather all registered virtual machines
     vmware_vm_facts:
-      hostname: "{{ vc_host }}" 
+      hostname: "{{ vc_host }}"
       username: "{{ vc_user }}"
       password: "{{ vc_pass }}"
       validate_certs: false
     register: vmfacts
 
   - set_fact:
-      is_nix: true  
+      is_nix: true
     when: vmfacts.virtual_machines.{{mod_name}}.guest_fullname | regex_search('(Red Hat)')
 
   - fail:
       msg: "This is not a Red Hat system"
     when: is_nix != true
-
-  - tower_group:
-      name: unconfigured
-      inventory: Lab
-      tower_host: 10.0.0.15 
-      tower_username: "tower_admin"
-      tower_password: "{{ vc_pass }}"
-      tower_verify_ssl: false
