@@ -35,8 +35,8 @@
   - name: clone guest
     vmware_guest:
       hostname: "{{ vc_host }}"
-      #username: "{{ vc_user }}"
-      #password: "{{ vc_pass }}"
+      username: "{{ vc_user }}"
+      password: "{{ vc_pass }}"
       validate_certs: no
       datacenter: MOD
       cluster: NUC
