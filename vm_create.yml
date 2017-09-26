@@ -34,7 +34,7 @@
     when: mod_os == 'rhel-74-base'
   - name: clone guest
     vmware_guest:
-      #hostname: "{{ vc_host }}"
+      hostname: "{{ vc_host }}"
       #username: "{{ vc_user }}"
       #password: "{{ vc_pass }}"
       validate_certs: no
