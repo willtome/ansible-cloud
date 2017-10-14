@@ -38,7 +38,7 @@
       username: "{{ vc_user }}"
       password: "{{ vc_pass }}"
       validate_certs: no
-      datacenter: MOD
+      datacenter: ONB
       cluster: NUC
       name: "{{ mod_name }}"
       template: "{{mod_os}}"
