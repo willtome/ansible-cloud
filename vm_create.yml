@@ -43,7 +43,7 @@
       name: "{{ mod_name }}"
       template: "{{mod_os}}"
       networks:
-      - name: Servers
+      - name: VM Network
         ip: "{{ mod_ip }}"
         netmask: 255.255.255.0
         gateway: 10.0.0.1
