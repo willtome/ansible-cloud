@@ -52,7 +52,7 @@
       - size_gb: 40
         datastore: Local01
       customization:
-        name: "{{ mod_name}}.mod.local"
-        domain: mod.local
+        name: "{{ mod_name}}.maxdepth.io"
+        domain: maxdepth.io 
         password: "{{ local_pass }}"
       wait_for_ip_address: yes
