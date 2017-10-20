@@ -21,21 +21,11 @@
       password: "{{ local_pass }}"
     wait_for_ip_address: yes
   register: vm
-  async: 7200
-  poll: 0
   with_sequence: count="{{count}}"
-
-- name: Wait for vm creation to complete
-  async_status: jid="{{ item.ansible_job_id }}"
-  register: vms
-  until: vms.finished
-  retries: 300
-  with_items: "{{ vm.results }}"
-  ignore_errors: yes
 
 
 - add_host:
       name: "{{item.instance.hw_name}}"
       ansible_host: "{{item.instance.hw_eth0.ipaddresses[0]}}"
       groups: "pool"
-  with_items: "{{vms.results}}"
+  with_items: "{{vm.results}}"
