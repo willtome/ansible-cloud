@@ -4,8 +4,9 @@
 # count
 
 - name: provision instances
-  hosts: tower
-  become: yes
+  hosts: localhost
+  connection: local
+  become: no
   gather_facts: no
 
   roles:
