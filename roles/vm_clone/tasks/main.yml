@@ -22,18 +22,13 @@
     wait_for_ip_address: yes
   register: vm
   with_sequence: count="{{count}}"
-  tags:
-    - build
+
 
 - add_host:
       name: "{{item.instance.hw_name}}"
       ansible_host: "{{item.instance.hw_eth0.ipaddresses[0]}}"
+      annsible_connection: ssh
+      ansible_user: ansible
+      ansible_pass: "{{ local_pass }}"
       groups: "pool"
   with_items: "{{vm.results}}"
-  tags:
-    - build
-
-#- name: add hosts
-#  add_host:
-#    name: "{{ prefix }}-{{item}}"
-#    ansible_host: "{{ prefix }}-{{item}}.maxdepth.io"
