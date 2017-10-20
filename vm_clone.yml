@@ -1,0 +1,30 @@
+---
+# Extra vars
+# prefix
+# count
+
+- name: provision instances
+  hosts: localhost
+  gather_facts: no
+
+  roles:
+    - vm_clone
+
+- name: custom facts
+  hosts: pool
+  become: yes
+
+  tasks:
+  - name: facts.d directory
+    file:
+      path: /etc/ansible/facts.d
+      state: directory
+      recurse: true
+
+  - name: facts
+    copy:
+      dest: "/etc/ansible/facts.d/{{item.key}}.fact"
+      content: "\"{{item.value}}\""
+    with_items:
+      - { key: 'app', value: 'identity' }
+      - { key: 'release', value: "{{ prefix }}" }

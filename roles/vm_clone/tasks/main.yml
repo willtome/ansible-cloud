@@ -1,0 +1,39 @@
+---
+- name: clone guest
+  vmware_guest:
+    hostname: "{{ vc_host }}"
+    username: "{{ vc_user }}"
+    password: "{{ vc_pass }}"
+    validate_certs: no
+    datacenter: ONB
+    cluster: NUC
+    name: "{{ prefix }}-{{item}}"
+    template: "{{mod_os}}"
+    snapshot_src: linked_clone
+    linked_clone: yes
+    state: poweredon
+    networks:
+    - name: VM Network
+      type: dhcp
+    customization:
+      name: "{{ prefix }}-{{ item }}.maxdepth.io"
+      domain: maxdepth.io
+      password: "{{ local_pass }}"
+    wait_for_ip_address: yes
+  register: vm
+  with_sequence: count="{{count}}"
+  tags:
+    - build
+
+- add_host:
+      name: "{{item.instance.hw_name}}"
+      ansible_host: "{{item.instance.hw_eth0.ipaddresses[0]}}"
+      groups: "pool"
+  with_items: "{{vm.results}}"
+  tags:
+    - build
+
+#- name: add hosts
+#  add_host:
+#    name: "{{ prefix }}-{{item}}"
+#    ansible_host: "{{ prefix }}-{{item}}.maxdepth.io"
