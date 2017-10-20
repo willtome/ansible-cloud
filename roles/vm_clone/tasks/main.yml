@@ -22,6 +22,7 @@
     wait_for_ip_address: yes
   register: vm
   with_sequence: count="{{count}}"
+  delegate_to: localhost
 
 
 - add_host:
