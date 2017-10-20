@@ -5,6 +5,7 @@
 
 - name: provision instances
   hosts: tower
+  become: yes
   gather_facts: no
 
   roles:
