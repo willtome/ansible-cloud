@@ -1,17 +1,10 @@
 ---
 - hosts: localhost
   gather_facts: false
+  vars_files:
+  - vars/vcenter.yml
 
   vars:
-    vc_host: '10.0.0.12'
-    vc_user: 'administrator@vsphere.local'
-    vc_pass: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          33376537303331386563306364663336353261653734353166333938356434306265623231646662
-          3337353236313937626631303266353265626366376566640a326535303632383136656536333539
-          61633063623565613432636237303136646434633939323538343838313037336164386531313563
-          6361366135356563640a346563373863373730343435346439333032306334663063353036333633
-          6534
     local_pass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           39343931373634663865343333333438643431363236323261386231376133306238646337343763
@@ -19,6 +12,7 @@
           66613238663234343963616164633565613632643139376163616232666335626236393735396564
           3532396233313139340a656632383939383864613931653465363464666539393139646530343036
           6634
+  # Extra vars:
     # mod_name: Name to assign to VM. Set by Tower survey
     # mod_ip: IP to assign to VM. Set by Tower survey
     # mod_os: Template to clone from. Set by Tower survey
@@ -53,6 +47,6 @@
         datastore: Local01
       customization:
         name: "{{ mod_name}}.maxdepth.io"
-        domain: maxdepth.io 
+        domain: maxdepth.io
         password: "{{ local_pass }}"
       wait_for_ip_address: yes

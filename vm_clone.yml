@@ -12,6 +12,7 @@
   roles:
     - vm_clone
 
+# place custom facts on provisioned machines
 - name: custom facts
   hosts: pool
   become: yes
