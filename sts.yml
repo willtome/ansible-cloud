@@ -17,12 +17,22 @@
   tasks:
   - name: assume role
     sts_assume_role:
-      role_arn: "arn:aws:iam::354943877494:role/S3_FULL"
+      role_arn: "arn:aws:iam::255820308257:role/willrole"
       role_session_name: "Ansible"
       duration_seconds: 900
       region: us-east-1
     environment: "{{ aws_vars }}"
     register: session_credentials
+
+  - name: Create an empty bucket
+    aws_s3:
+      bucket: "{{ mybucket }}"
+      aws_access_key: "{{ session_credentials.sts_creds.access_key }}"
+      aws_secret_key: "{{ session_credentials.sts_creds.secret_key }}"
+      security_token: "{{ session_credentials.sts_creds.session_token }}"
+      region: us-east-1
+      mode: create
+    when: mybucket is defined
 
   - name: get bucket facts
     aws_s3_bucket_facts:
