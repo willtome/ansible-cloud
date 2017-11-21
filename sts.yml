@@ -1,0 +1,35 @@
+---
+- hosts: localhost
+  become: no
+
+  vars:
+    aws_vars:
+      AWS_ACCESS_KEY_ID: AKIAJPG7XKO2JVJ7NCUQ
+      AWS_SECRET_ACCESS_KEY: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          35353364306636656638663436616231313239353164646265356230666436366339303163623134
+          6564313833376438363436313330313733386534343130390a366337633930393031663331323332
+          34386638306630376665383164303365396164613030626130393132613034343635653264323166
+          3831326565646565350a303262326337333861316135616165306236653439666364626638376334
+          61373664383132316538386335363764363538306134653433333832356162333565656532366633
+          3139643232353539373735363031366430616465323137326536
+
+  tasks:
+  - name: assume role
+    sts_assume_role:
+      role_arn: "arn:aws:iam::354943877494:role/S3_FULL"
+      role_session_name: "Ansible"
+      duration_seconds: 900
+      region: us-east-1
+    environment: "{{ aws_vars }}"
+    register: session_credentials
+
+  - name: get bucket facts
+    aws_s3_bucket_facts:
+      aws_access_key: "{{ session_credentials.sts_creds.access_key }}"
+      aws_secret_key: "{{ session_credentials.sts_creds.secret_key }}"
+      security_token: "{{ session_credentials.sts_creds.session_token }}"
+      region: us-east-1
+    register: buckets
+
+  - debug: var=buckets
