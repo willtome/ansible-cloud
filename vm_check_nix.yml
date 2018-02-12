@@ -1,11 +1,10 @@
 ---
 - hosts: localhost
-  vars_files:
-  - vars/vcenter.yml
+  gather_facts: no
 
   vars:
     is_nix: false
-    #mod_name:
+    #vm_name:
 
   tasks:
   - name: Gather all registered virtual machines
@@ -18,7 +17,7 @@
 
   - set_fact:
       is_nix: true
-    when: vmfacts.virtual_machines.{{mod_name}}.guest_fullname | regex_search('(Red Hat)')
+    when: vmfacts.virtual_machines.{{vm_name}}.guest_fullname | regex_search('(Red Hat)')
 
   - fail:
       msg: "This is not a Red Hat system"
