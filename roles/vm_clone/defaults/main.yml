@@ -25,7 +25,7 @@ vm_hardware:
   memory_mb: 512
   num_cpus: 1
 vm_customization:
-  hostname: "{{ vm_name }}.maxdepth.io"
+  name: "{{ vm_name }}.maxdepth.io"
   domain: maxdepth.io
   dns_suffix:
     - maxdepth.io
