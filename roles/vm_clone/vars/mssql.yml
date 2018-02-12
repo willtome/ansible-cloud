@@ -1,38 +1,38 @@
 ---
-vc_server: '10.0.0.12'
-vc_user: 'administrator@vspere.local'
-vc_pass: 'vmware'
-vc_validate_certs: False
-vc_datacenter: 'ONB'
-vc_cluster: 'NUC'
-vm_name: 'AnsibleVM'
-vm_type: 'linux'
-vm_template: 'vmTemplate'
-vm_annotation: 'Created By Ansible'
-vm_wait_for_ip_address: yes
-vm_customvalues:
-  - {key: AnsibleGroup, value: managed }
-  - {key: AnsibleType, value: vm }
+vm_name: mssqlVM
+vm_template: win-2016-base
+vm_disk:
+  - size_gb: 40
+    datastore: Local01
+  - size_gb: 100
+    type: thin
+    datastore: Local01
+  - size_gb: 50
+    type: thin
+    datastore: Local01
+  - size_gb: 50
+    type: thin
+    datastore: Local01
+  - size_gb: 50
+    type: thin
+    datastore: Local01
+vm_hardware:
+  memory_mb: 4096
+  num_cpus: 2
 vm_networks:
   - name: VM Network
     ip: "{{ vm_ip }}"
     netmask: 255.255.255.0
     gateway: 10.0.0.1
-vm_disk:
-  - size_gb: 40
-    autoselect_datastore: True
-vm_hardware:
-  memory_mb: 512
-  num_cpus: 1
 vm_customization:
-  hostname: "{{ vm_name }}.maxdepth.io"
-  domain: maxdepth.io
+  name: "{{ vm_name }}.ad.maxdepth.io"
+  domain: 'ad.maxdepth.io'
   dns_suffix:
-    - maxdepth.io
     - ad.maxdepth.io
+    - maxdepth.io
   dns_servers:
-    - 10.0.0.10
     - 10.0.0.11
+    - 10.0.0.10
   password: !vault |
         $ANSIBLE_VAULT;1.1;AES256
         39343931373634663865343333333438643431363236323261386231376133306238646337343763

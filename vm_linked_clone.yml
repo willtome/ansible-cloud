@@ -10,7 +10,7 @@
   gather_facts: no
 
   roles:
-    - vm_clone
+    - vm_linked_clone
 
 # place custom facts on provisioned machines
 - name: custom facts

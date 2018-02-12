@@ -1,0 +1,46 @@
+---
+- hosts: esx
+  gather_facts: no
+
+  vars:
+    esx_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33353563353962663663646531393165343036346433343736353063336361626361343939653631
+          6637343166353233653233646364363761616461386263350a373436356335623732353261613634
+          37366334383233313331303539323537666534376464336537336133363338633635333461626333
+          6635383532366662320a356531393337666134373766336638656338353366373732366266666233
+          3331
+
+  tasks:
+  - name: check CDP Status
+    command: esxcfg-vswitch -b vSwitch0
+    register: result
+
+  - name: set CDP to both
+    command: esxcfg-vswitch -B both vSwitch0
+    when: result.stdout != 'both'
+
+  - name: check ESX hostname
+    command: esxcli system hostname get
+    register: result
+
+  - name: set ESX hostname
+    command: esxcli system hostname set --fqdn='{{ inventory_hostname }}'.mod.local
+    when: '"{{ inventory_hostname }}.mod.local" not in result.stdout'
+
+  - name: manage port groups
+    local_action:
+      module: vmware_portgroup
+      username: root
+      hostname: "{{ansible_host}}"
+      password: "{{esx_pass}}"
+      validate_certs: False
+      switch_name: vSwitch0
+      portgroup_name: "{{item.name}}"
+      vlan_id: "{{item.vlan}}"
+      network_policy:
+        promiscuous_mode: true
+    with_items:
+      - { name: 'VIRL-Flat', vlan: '1721' }
+      - { name: 'VIRL-Flat1', vlan: '1722' }
+      - { name: 'VIRL-Snat', vlan: '1723' }
