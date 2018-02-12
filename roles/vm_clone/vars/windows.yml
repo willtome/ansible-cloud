@@ -1,0 +1,27 @@
+---
+vm_name: windowsVM
+vm_template: win-2016-base
+vm_disk:
+  - size_gb: 40
+    datastore: Local01
+vm_networks:
+  - name: VM Network
+    ip: "{{ vm_ip }}"
+    netmask: 255.255.255.0
+    gateway: 10.0.0.1
+vm_customization:
+  name: "{{ vm_name }}.ad.maxdepth.io"
+  domain: 'ad.maxdepth.io'
+  dns_suffix:
+    - ad.maxdepth.io
+    - maxdepth.io
+  dns_servers:
+    - 10.0.0.11
+    - 10.0.0.10
+  password: !vault |
+        $ANSIBLE_VAULT;1.1;AES256
+        39343931373634663865343333333438643431363236323261386231376133306238646337343763
+        6366373264393835653364303937613761626461633238350a353134393135383732393736363266
+        66613238663234343963616164633565613632643139376163616232666335626236393735396564
+        3532396233313139340a656632383939383864613931653465363464666539393139646530343036
+        6634
