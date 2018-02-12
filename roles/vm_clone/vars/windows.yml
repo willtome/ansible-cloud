@@ -3,7 +3,7 @@ vm_name: windowsVM
 vm_template: win-2016-base
 vm_disk:
   - size_gb: 40
-    datastore: Local01
+    datastore: Local01,Local02
 vm_networks:
   - name: VM Network
     ip: "{{ vm_ip }}"
