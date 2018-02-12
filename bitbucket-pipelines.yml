@@ -14,4 +14,4 @@ pipelines:
             - git remote set-url --add --push github  git@github.com:mgmt-sa-tiger-team/wtome-ansible-cloud.git
             - git config user.name "Will Tome"
             - git config user.email "wtome@redhat.com"
-            - git push -f github master 
+            - git push -f github master
