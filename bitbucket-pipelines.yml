@@ -13,6 +13,5 @@ pipelines:
             - git remote add github git@github.com:willtome/ansible-cloud.git
             - git remote add tigerteam git@github.com:mgmt-sa-tiger-team/wtome-ansible-cloud.git
             - git config user.name "willtome"
-            - git config user.email "wtome@redhat.com"
             - git push -f github master
             - git push -f tigerteam master
