@@ -1,5 +1,5 @@
 ---
-- hosts: *_tower
+- hosts: "{{mygroup}}"
   gather_facts: no
 
   tasks:
