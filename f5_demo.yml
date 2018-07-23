@@ -1,6 +1,7 @@
 ---
 - hosts: "{{mygroup}}"
   gather_facts: no
+  become: yes
 
   tasks:
   - name: Install PIP packages into Tower's virtualenv
