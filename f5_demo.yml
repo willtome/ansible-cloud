@@ -6,9 +6,12 @@
   tasks:
   - name: Install PIP packages into Tower's virtualenv
     pip:
-      name: f5-sdk
+      name: "{{ item }}"
       state: latest
       virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    with_items:
+    - bigsuds
+    - f5-sdk
 
   - copy:
       src: f5_inventory.yml
