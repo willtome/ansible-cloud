@@ -10,8 +10,17 @@
       state: latest
       virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
     with_items:
-    - bigsuds
-    - f5-sdk
+      - "setuptools>=1.4"
+      - f5-sdk
+      - bigsuds
+      - pan-python
+      - pandevice
+      - pexpect
+      - requests
+      - pyopenssl
+      - netaddr
+      - xmltodict
+      - ncclient
 
   - copy:
       src: f5_inventory.yml
