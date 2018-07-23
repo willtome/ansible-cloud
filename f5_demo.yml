@@ -1,0 +1,22 @@
+---
+- hosts: *_tower
+  gather_facts: no
+
+  tasks:
+  - name: Install PIP packages into Tower's virtualenv
+    pip:
+      name: f5-sdk
+      state: latest
+      virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+
+  - file:
+      path: /var/lib/awx/projects/f5_inventory
+      state: directory
+      owner: awx
+      group: awx
+
+  - copy:
+      src: f5_inventory.yml
+      dest: /var/lib/awx/projects/hosts.yml
+      owner: awx
+      group: awx
