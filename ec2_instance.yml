@@ -1,0 +1,49 @@
+---
+- name: create new EC2 instance
+  hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: create security group
+    ec2_group:
+      name: "wtome-ssh-all"
+      description: "Allow SSH from anywhere"
+      region: "{{ aws_region }}"
+      vpc_id: "{{ vpc_id }}"
+      rules:
+      - proto: tcp
+        ports:
+        - 22
+        cidr_ip: 0.0.0.0/0
+        rule_desc: "allow all on port 22"
+
+  - name: create ec2 instance
+    ec2:
+      key_name: "{{ ec2_key_name }}"
+      instance_type: "{{ ec2_size | default('t2.micro') }}"
+      image: "{{ ec2_ami | default('ami-6871a115') }}"
+      region: "{{ aws_region }}"
+      wait: yes
+      group: wtome-ssh-all
+      vpc_subnet_id: "{{ subnet_id }}"
+      assign_public_ip: yes
+      exact_count: 1
+      count_tag:
+        Name: "{{ HOSTS }}"
+      instance_tags:
+        Name: "{{ HOSTS }}"
+    register: ec2_out
+
+  - name: create inventory
+    add_host:
+      name: "{{ HOSTS }}"
+      ansible_host: "{{ ec2_out.instances.0.public_ip }}"
+      groups: servers
+
+- name: test connectivity
+  hosts: servers
+  gather_facts: no
+
+  tasks:
+  - wait_for_connection:
+  - setup:
