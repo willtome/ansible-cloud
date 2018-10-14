@@ -12,4 +12,4 @@
       instance_ids: "{{ ec2_id }}"
       instance_tags:
         Name: "{{ inventory_hostname }}"
-    delectate_to: localhost
+    delegate_to: localhost
