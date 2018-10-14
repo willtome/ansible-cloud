@@ -32,6 +32,7 @@
         Name: "{{ HOSTS }}"
       instance_tags:
         Name: "{{ HOSTS }}"
+        ansible_group: "{{ HOSTS_GROUP }}"
     register: ec2_out
 
   - name: create inventory
