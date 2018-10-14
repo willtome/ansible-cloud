@@ -1,0 +1,15 @@
+---
+- name: destroy EC2 instance
+  hosts: "{{ HOSTS }}"
+  gather_facts: no
+
+  tasks:
+  - name: destroy ec2 instance
+    ec2:
+      state: absent
+      region: "{{ ec2_region }}"
+      wait: yes
+      instance_ids: "{{ ec2_id }}"
+      instance_tags:
+        Name: "{{ inventory_hostname }}"
+    delectate_to: localhost
