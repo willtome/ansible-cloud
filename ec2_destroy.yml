@@ -10,6 +10,4 @@
       region: "{{ ec2_region }}"
       wait: yes
       instance_ids: "{{ ec2_id }}"
-      instance_tags:
-        Name: "{{ inventory_hostname }}"
     delegate_to: localhost
