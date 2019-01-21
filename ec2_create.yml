@@ -34,6 +34,7 @@
         Name: "{{ HOSTS }}"
         ansible_group: "{{ HOSTS_GROUP }}"
         Platform: linux
+        Owner: "{{ OWNER | default('ansible')}}"
     register: ec2_out
 
   - name: create inventory
