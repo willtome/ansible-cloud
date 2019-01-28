@@ -43,13 +43,13 @@
 
   - debug:
       msg: "{{ ec2_out }}"
-      
+
   - name: create inventory
     add_host:
       name: "{{ item.tags.Name }}"
       ansible_host: "{{ item.public_ip }}"
       groups: servers
-    loop: "{{ ec2_out.instances }}"
+    loop: "{{ ec2_out.results.0.instances }}"
 
 - name: test connectivity
   hosts: servers
