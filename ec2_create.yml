@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: no
   vars:
-    start_id: 0
+    start_idx: 0
     count: 1
 
   tasks:
@@ -39,8 +39,11 @@
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
     register: ec2_out
-    loop: "{{ range(start_id | int, (count | int) + 1) | list }}"
+    loop: "{{ range(start_idx | int, (count | int) + 1) | list }}"
 
+  - debug:
+      msg: "{{ ec2_out }}"
+      
   - name: create inventory
     add_host:
       name: "{{ item.tags.Name }}"
