@@ -2,6 +2,9 @@
 - name: create new EC2 instance
   hosts: localhost
   gather_facts: no
+  vars:
+    start_id: 0
+    count: 1
 
   tasks:
   - name: create security group
@@ -29,19 +32,21 @@
       assign_public_ip: yes
       exact_count: 1
       count_tag:
-        Name: "{{ HOSTS }}"
+        Name: "wtome_{{ HOSTS }}_{{item}}"
       instance_tags:
-        Name: "{{ HOSTS }}"
-        ansible_group: "{{ HOSTS_GROUP }}"
+        Name: "wtome_{{ HOSTS }}_{{ item }}"
+        Group: "{{ HOSTS_GROUP }}"
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
     register: ec2_out
+    loop: "{{ range(start_id, count + 1) | list }}"
 
   - name: create inventory
     add_host:
-      name: "{{ HOSTS }}"
-      ansible_host: "{{ ec2_out.instances.0.public_ip }}"
+      name: "{{ item.tags.Name }}"
+      ansible_host: "{{ item.public_ip }}"
       groups: servers
+    loop: "{{ ec2_out.instances }}"
 
 - name: test connectivity
   hosts: servers
