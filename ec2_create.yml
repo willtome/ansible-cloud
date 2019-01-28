@@ -39,7 +39,7 @@
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
     register: ec2_out
-    loop: "{{ range(start_id, count + 1) | list }}"
+    loop: "{{ range(start_id | int, (count | int) + 1) | list }}"
 
   - name: create inventory
     add_host:

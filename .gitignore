@@ -1,3 +1,5 @@
 .DS_STORE
 *.retry
 hosts
+roles
+!roles/requirements.yml
