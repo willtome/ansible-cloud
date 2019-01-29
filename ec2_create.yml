@@ -46,12 +46,10 @@
 
   - name: create inventory
     add_host:
-      name: "{{ item.tags.Name }}"
-      ansible_host: "{{ item.public_ip }}"
+      name: "{{ item.tags.tagged_instances.0.Name }}"
+      ansible_host: "{{ item.tagged_instances.0.public_ip }}"
       groups: servers
     loop: "{{ ec2_out.results }}"
-    loop_control:
-      label: "{{ item.tagged_instances.0 }}"
 
 - name: test connectivity
   hosts: servers
