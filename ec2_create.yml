@@ -41,9 +41,6 @@
     register: ec2_out
     loop: "{{ range(start_idx | int, (count | int)) | list }}"
 
-  - debug:
-      msg: "{{ ec2_out }}"
-
   - name: create inventory
     add_host:
       name: "{{ item.tagged_instances.0.tags.Name }}"
