@@ -32,9 +32,9 @@
       assign_public_ip: yes
       exact_count: 1
       count_tag:
-        Name: "wtome_{{ HOSTS }}_{{item}}"
+        Name: "{{ HOSTS }}_{{item}}"
       instance_tags:
-        Name: "wtome_{{ HOSTS }}_{{ item }}"
+        Name: "{{ HOSTS }}_{{ item }}"
         Group: "{{ HOSTS_GROUP }}"
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
