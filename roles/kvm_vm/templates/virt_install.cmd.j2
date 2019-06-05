@@ -1,13 +1,13 @@
-{% for guest in kvm_guests %}
-{% if guest.key not in kvm_vms.list_vms %}
+{% for guest in kvm_guests.keys() %}
+{% if guest not in kvm_vms.list_vms %}
 
 virt-install --name={{ guest.key }} \
---disk size={{ guest.disk_size | default(kvm_disk_size) }},path={{ guest.path | default(kvm_path)}},bus=virtio,cache=none \
---network "bridge={{ guest.bridge | default(kvm_bridge) }},model=virtio" \
---vcpus={{ guest.cpu | default(kvm_cpu) }} \
---ram={{ guest.ram | default(kvm_ram) }} \
---os-type={{ guest.os_type | default(kvm_os_type) }} \
---os-variant={{ guest.variant | default(kvm_variant) }} \
+--disk size={{ kvm_guests[guest].disk_size | default(kvm_disk_size) }},path={{ guest.path | default(kvm_path)}},bus=virtio,cache=none \
+--network "bridge={{ kvm_guests[guest].bridge | default(kvm_bridge) }},model=virtio" \
+--vcpus={{ kvm_guests[guest].cpu | default(kvm_cpu) }} \
+--ram={{ kvm_guests[guest].ram | default(kvm_ram) }} \
+--os-type={{ kvm_guests[guest].os_type | default(kvm_os_type) }} \
+--os-variant={{ kvm_guests[guest].variant | default(kvm_variant) }} \
 --console pty \
 --autostart \
 --graphics none \

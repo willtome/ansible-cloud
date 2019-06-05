@@ -1,8 +1,8 @@
 ---
 - name: get list of VMs
-    virt:
-      command: "list_vms"
-    register: kvm_vms
+  virt:
+    command: "list_vms"
+  register: kvm_vms
 
 - name: create vm
   command: "{{ lookup('template', '../templates/virt_install.cmd.j2') }}"
