@@ -1,0 +1,14 @@
+---
+- name: get list of VMs
+    virt:
+      command: "list_vms"
+    register: kvm_vms
+
+- name: create vm
+  command: "{{ lookup('template', '../templates/virt_install.cmd.j2') }}"
+
+- name: start vm
+  virt:
+    name: "{{ item.key }}"
+    state: running
+  loop: "{{ kvm_guests }}"

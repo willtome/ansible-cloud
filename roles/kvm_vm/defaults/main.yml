@@ -1,0 +1,9 @@
+---
+kvm_guests: []
+kvm_disk_size: 20
+kvm_path: ''
+kvm_bridge: br-bond1-104
+kvm_cpu: 4
+kvm_ram: 4000
+kvm_os_type: linux
+kvm_variant: rhel7
