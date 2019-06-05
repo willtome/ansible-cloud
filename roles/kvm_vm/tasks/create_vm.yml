@@ -5,7 +5,7 @@
   register: kvm_vms
 
 - name: create vm
-  command: "{{ lookup('template', '../templates/virt_install.cmd.j2') }}"
+  shell: "{{ lookup('template', '../templates/virt_install.sh.j2') }}"
 
 - name: start vm
   virt:
