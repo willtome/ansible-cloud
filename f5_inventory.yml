@@ -1,0 +1,39 @@
+all:
+  vars:
+    network_username: admin
+    network_password: ansible123
+
+  hosts:
+    f5.f5-lab1:
+      ansible_host: 18.209.46.74
+      ansible_user: admin
+      ansible_network_os: tmos
+      private_ip_address: 10.1.0.254
+      interfaces:
+        - name: mgmt
+          ip: 10.1.0.254/24
+          private_ip_address: 10.1.0.254
+          private_ip_cidr: 10.1.0.254/24
+          public_ip_address: 18.209.46.74
+          public_dns_name: ec2-18-209-46-74.compute-1.amazonaws.com
+        - name: eth0
+          ip: 10.1.1.254/24
+          private_ip_address: 10.1.1.254
+          private_ip_cidr: 10.1.1.254/24
+          public_ip_address: 18.205.215.114
+          public_dns_name: ec2-18-205-215-114.compute-1.amazonaws.com
+        - name: eth1
+          ip: 10.1.2.254/24
+          private_ip_address: 10.1.2.254
+          private_ip_cidr: 10.1.2.254/24
+          public_ip_address:
+          public_dns_name:
+
+  children:
+      tmos:
+        hosts:
+          f5.f5-lab1:
+      app_hosts:
+        hosts:
+          node-1:
+          node-2:

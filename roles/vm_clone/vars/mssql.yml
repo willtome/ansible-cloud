@@ -19,11 +19,9 @@ vm_disk:
 vm_hardware:
   memory_mb: 4096
   num_cpus: 2
-vm_networks:
-  - name: VM Network
-    ip: "{{ vm_ip }}"
-    netmask: 255.255.255.0
-    gateway: 10.0.0.1
+vm_customvalues:
+  - {key: AnsibleGroup, value: managed }
+  - {key: AnsibleType, value: mssql }
 vm_customization:
   name: "{{ vm_name }}.ad.maxdepth.io"
   domain: 'ad.maxdepth.io'

@@ -1,0 +1,27 @@
+---
+- hosts: "{{mygroup}}"
+  gather_facts: no
+  become: yes
+
+  tasks:
+  - name: Install PIP packages into Tower's virtualenv
+    pip:
+      name: "{{ item }}"
+      state: latest
+      virtualenv_command: /var/lib/awx/venv/ansible/bin/activate
+    with_items:
+      - "setuptools>=1.4"
+      - f5-sdk
+      - bigsuds
+      - pan-python
+      - pandevice
+      - pexpect
+      - requests
+      - pyopenssl
+      - netaddr
+      - xmltodict
+      - ncclient
+
+  - copy:
+      src: f5_inventory.yml
+      dest: /tmp/hosts.yml
