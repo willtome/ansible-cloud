@@ -9,6 +9,6 @@
 
 - name: start vm
   virt:
-    name: "{{ item.key }}"
+    name: "{{ item }}"
     state: running
-  loop: "{{ kvm_guests }}"
+  loop: "{{ kvm_guests.keys() }}"
