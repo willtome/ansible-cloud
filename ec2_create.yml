@@ -7,6 +7,10 @@
     count: 1
 
   tasks:
+  - name: set name
+    set_fact: 
+      vm_name: "{{ HOSTS | regex_search('(\\w*)') }}"
+
   - name: create security group
     ec2_group:
       name: "wtome-ssh-all"
