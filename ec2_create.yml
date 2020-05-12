@@ -37,9 +37,9 @@
       exact_count: 1
       user_data: "{{ ec2_user_data | default ('') }}"
       count_tag:
-        Name: "{{ HOSTS }}_{{item}}"
+        Name: "{{ vm_name }}_{{item}}"
       instance_tags:
-        Name: "{{ HOSTS }}_{{ item }}"
+        Name: "{{ vm_name }}_{{ item }}"
         Group: "{{ HOSTS_GROUP }}"
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
