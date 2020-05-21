@@ -39,7 +39,7 @@
       count_tag:
         Name: "{{ vm_name }}_{{item}}"
       instance_tags:
-        Name: "{{ vm_name }}_{{ item }}"
+        Name: "{{ vm_name }}-{{ item }}"
         Group: "{{ HOSTS_GROUP }}"
         Platform: linux
         Owner: "{{ OWNER | default('ansible')}}"
