@@ -37,7 +37,7 @@
       exact_count: 1
       user_data: "{{ ec2_user_data | default ('') }}"
       count_tag:
-        Name: "{{ vm_name }}_{{item}}"
+        Name: "{{ vm_name }}-{{item}}"
       instance_tags:
         Name: "{{ vm_name }}-{{ item }}"
         Group: "{{ HOSTS_GROUP }}"
