@@ -40,7 +40,7 @@ resource "aws_instance" "k8s-master-2" {
     tags = {
         Name = "k8s-master-2"
         Owner = "wtome"
-        Group = "k8s_worker"
+        Group = "k8s_master"
         Platform = "linux"
     }
 }
@@ -55,7 +55,7 @@ resource "aws_instance" "k8s-master-3" {
     tags = {
         Name = "k8s-master-3"
         Owner = "wtome"
-        Group = "k8s_worker"
+        Group = "k8s_master"
         Platform = "linux"
     }
 }
