@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    check: yes
+ 
+  tasks:
+  - name: initialize terraform
+    command: terraform init
+    args:
+      chdir: "{{ playbook_dir }}/terraform"
+      creates: "{{ playbook_dir }}/tf/.terraform"
+
+  - name: run terraform
+    terraform:
+      project_path: "{{ playbook_dir }}/terraform/"
+      state: present
+      plan_file: /data/terraform/terraform.tfstate
+      state_file: /data/terraform/terraform.tfstate
+    check_mode: "{{ check }}"
