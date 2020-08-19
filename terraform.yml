@@ -1,8 +1,6 @@
 ---
 - hosts: localhost
   gather_facts: no
-  vars:
-    check: yes
  
   tasks:
   - name: initialize terraform
@@ -15,6 +13,4 @@
     terraform:
       project_path: "{{ playbook_dir }}/terraform/"
       state: present
-      plan_file: /data/terraform/terraform.tfstate
       state_file: /data/terraform/terraform.tfstate
-    check_mode: "{{ check }}"
