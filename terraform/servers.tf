@@ -15,22 +15,22 @@ data "aws_subnet_ids" "my_subnet" {
     }
 }
 
-resource "aws_instance" "k8s-master" {
+resource "aws_instance" "k8s-master-1" {
     ami = "ami-08e923f2f38197e46"
-    instance_type = "t2.medium"
+    instance_type = "t2.micro"
     key_name = "wtome-lightbulb"
     vpc_security_group_ids = ["sg-030d834a"]
     subnet_id = tolist(data.aws_subnet_ids.my_subnet.ids)[0]
     associate_public_ip_address = true
     tags = {
-        Name = "k8s-master"
+        Name = "k8s-master-1"
         Owner = "wtome"
         Group = "k8s_master"
         Platform = "linux"
     }
 }
 
-resource "aws_instance" "k8s-worker-1" {
+resource "aws_instance" "k8s-master-2" {
     ami = "ami-08e923f2f38197e46"
     instance_type = "t2.micro"
     key_name = "wtome-lightbulb"
@@ -38,14 +38,14 @@ resource "aws_instance" "k8s-worker-1" {
     subnet_id = tolist(data.aws_subnet_ids.my_subnet.ids)[0]
     associate_public_ip_address = true
     tags = {
-        Name = "k8s-worker-1"
+        Name = "k8s-master-2"
         Owner = "wtome"
         Group = "k8s_worker"
         Platform = "linux"
     }
 }
 
-resource "aws_instance" "k8s-worker-2" {
+resource "aws_instance" "k8s-master-3" {
     ami = "ami-08e923f2f38197e46"
     instance_type = "t2.micro"
     key_name = "wtome-lightbulb"
@@ -53,22 +53,7 @@ resource "aws_instance" "k8s-worker-2" {
     subnet_id = tolist(data.aws_subnet_ids.my_subnet.ids)[0]
     associate_public_ip_address = true
     tags = {
-        Name = "k8s-worker-2"
-        Owner = "wtome"
-        Group = "k8s_worker"
-        Platform = "linux"
-    }
-}
-
-resource "aws_instance" "k8s-worker-3" {
-    ami = "ami-08e923f2f38197e46"
-    instance_type = "t2.micro"
-    key_name = "wtome-lightbulb"
-    vpc_security_group_ids = ["sg-030d834a"]
-    subnet_id = tolist(data.aws_subnet_ids.my_subnet.ids)[0]
-    associate_public_ip_address = true
-    tags = {
-        Name = "k8s-worker-3"
+        Name = "k8s-master-3"
         Owner = "wtome"
         Group = "k8s_worker"
         Platform = "linux"
