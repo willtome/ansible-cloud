@@ -9,8 +9,23 @@
       chdir: "{{ playbook_dir }}/terraform"
       creates: "{{ playbook_dir }}/tf/.terraform"
 
+  - name: check for existing state
+    stat:
+      path: /data/terraform/terraform.tfstate
+    register: state
+
+  - name: use existing state
+    copy:
+      src: /data/terraform/terraform.tfstate
+      dest: "{{ playbook_dir }}/terraform"
+    when: state.stat.exists
+
   - name: run terraform
     terraform:
       project_path: "{{ playbook_dir }}/terraform/"
       state: present
-      state_file: /data/terraform/terraform.tfstate
+
+  - name: save state
+    copy:
+      dest: /data/terraform/terraform.tfstate
+      src: "{{ playbook_dir }}/terraform/terraform.tfstate"
