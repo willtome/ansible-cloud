@@ -7,7 +7,7 @@
 
 pipelines:
   branches:
-    master:
+    main:
       - step:
           script:
             - git remote add github git@github.com:willtome/ansible-cloud.git
