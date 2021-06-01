@@ -1,0 +1,4 @@
+---
+collections:
+  - name: servicenow.itsm
+    version: 1.0.0

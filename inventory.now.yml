@@ -1,0 +1,11 @@
+---
+plugin: servicenow.itsm.now
+columns:
+  - name
+  - monitor
+  - virtual
+  - environment
+group_by:
+  environment:
+  sys_class_name:
+  os:
