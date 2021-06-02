@@ -1,0 +1,13 @@
+---
+- hosts: "{{ HOSTS }}"
+  connection: localhost
+  gather_facts: no
+
+  tasks:
+  - name: open incident
+    servicenow.itsm.incident:
+      state: new
+      urgency: medium
+      impact: medium
+      short_description: "Ansible Job {{ lookup('env', 'JOB_ID') }} Failed"
+      description: "See job logs: {{ lookup('env', 'AWX_HOST') }}/#/jobs/playbooks/{{ lookup('env', 'JOB_ID') }}"
