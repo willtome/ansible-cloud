@@ -23,3 +23,10 @@
     disk: "{{ vm_disk }}"
     hardware: "{{vm_hardware}}"
     customization: "{{ vm_customization }}"
+  register: new_vm
+
+- name: Detect IP address
+  add_host:
+    name: "{{ new_vm.instance.hw_name }}"
+    ansible_host: "{{ new_vm.instance.ipv4 }}"
+    groups: vms

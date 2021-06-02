@@ -15,7 +15,7 @@ vm_customvalues:
   - {key: AnsibleType, value: vm }
 vm_networks:
   - name: VM Network
-    ip: "{{ vm_ip }}"
+    ip: "{{ vm_ip | default(omit) }}"
     netmask: 255.255.255.0
     gateway: 10.0.0.1
 vm_disk:
