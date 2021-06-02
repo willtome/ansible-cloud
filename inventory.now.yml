@@ -5,7 +5,9 @@ columns:
   - monitor
   - virtual
   - environment
+  - sys_id
 group_by:
   environment:
   sys_class_name:
   os:
+
