@@ -1,28 +1,17 @@
 ---
-- name: check for variables
-  stat:
-    path: "{{ role_path }}/vars/{{ vm_type }}.yml"
-  register: stat_result
-
-- name: import variables
-  include_vars:
-    file: "{{ role_path }}/vars/{{ vm_type }}.yml"
-  when: stat_result.stat.exists|bool == true
-
 - name: clone VM
   vmware_guest:
-    validate_certs: "{{ vc_validate_certs }}"
-    datacenter: "{{ vc_datacenter }}"
-    cluster: "{{ vc_cluster }}"
+    validate_certs: no
+    datacenter: "{{ vm_datacenter }}"
+    cluster: "{{ vm_cluster }}"
     name: "{{ vm_name }}"
     template: "{{ vm_template }}"
     annotation: "{{ vm_annotation }}"
     wait_for_ip_address: "{{ vm_wait_for_ip_address }}"
-    customvalues: "{{ vm_customvalues }}"
     networks: "{{ vm_networks }}"
     disk: "{{ vm_disk }}"
     hardware: "{{vm_hardware}}"
-    customization: "{{ vm_customization }}"
+    folder: ONB/vm
   register: new_vm
 
 - name: Detect IP address
