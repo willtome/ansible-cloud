@@ -11,9 +11,6 @@
 
 - name: clone VM
   vmware_guest:
-    hostname: "{{ vc_host }}"
-    username: "{{ vc_user }}"
-    password: "{{ vc_pass }}"
     validate_certs: "{{ vc_validate_certs }}"
     datacenter: "{{ vc_datacenter }}"
     cluster: "{{ vc_cluster }}"
