@@ -1,6 +1,6 @@
 ---
 - hosts: "{{ HOSTS }}"
-  connection: localhost
+  connection: local
   gather_facts: no
 
   tasks:
