@@ -10,6 +10,6 @@
       urgency: medium
       impact: medium
       short_description: "Ansible Job {{ lookup('env', 'JOB_ID') }} Failed"
-      description: "See job logs: {{ lookup('env', 'AWX_HOST') }}/#/jobs/playbooks/{{ lookup('env', 'JOB_ID') }}"
+      description: "See job logs: {{ lookup('env', 'AWX_HOST') }}/#/jobs/playbook/{{ lookup('env', 'JOB_ID') }}"
       other:
         cmdb_ci: "{{ inventory_hostname }}"
