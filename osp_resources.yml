@@ -3,5 +3,5 @@
   gather_facts: no
 
   tasks:
-  - name: get openstack projects
-    openstack.cloud.project_info:
+  - name: get openstack images
+    openstack.cloud.image_info:
