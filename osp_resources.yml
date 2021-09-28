@@ -5,3 +5,16 @@
   tasks:
   - name: get openstack images
     openstack.cloud.image_info:
+    register: image_info
+
+  - name: print images
+    debug:
+      var: image_info
+
+  - name: get openstack servers
+    openstack.cloud.server_info:
+    register: server_info
+
+  - name: print servers
+    debug:
+      var: server_info
